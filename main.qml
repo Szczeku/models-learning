@@ -1,42 +1,83 @@
-import QtQuick 2.15
-import QtQuick.Window 2.15
+import QtQuick
 
 Window {
-    width: 640
-    height: 480
-    visible: true
-    title: qsTr("Hello World")
+  width: 640
+  height: 480
+  visible: true
+  title: qsTr("Week 3 Lesson 1")
 
+  color: "#04223f"
 
+  // population in milions
+  ListModel {
+    id: countriesModel
 
-    Rectangle {
-        id:root
-        width: 640;
-        height: 90;
-        color: "#202020"
-        anchors.centerIn: parent
+    ListElement {
+      name: "Poland"
+      capital: "Warsaw"
+      population: 37.95
+    }
+    ListElement {
+      name: "Greece"
+      capital: "Atens"
+      population: 10.72
+    }
+    ListElement {
+      name: "France"
+      capital: "Paris"
+      population: 212.6
+    }
+  }
 
-        Text {
-            id: countryNameAndCapitalText
-            text: qsTr("text")
-            color: "white"
-            anchors {
-                left: parent.left
-                verticalCenter: parent.verticalCenter
-            }
-        }
+  ListView {
+    id: countriesListView
 
-        Text {
-            id: populationText
-            text: qsTr("text")
-            color: "white"
-            anchors {
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-            }
-        }
+    anchors {
+      fill: parent
+      margins: 20
     }
 
+    clip: true
+    spacing: 10
 
+    model: countriesModel
+
+    delegate: Rectangle {
+      id: listViewDelegate
+
+      width: countriesListView.width
+      height: 50
+
+      color: "#1068bf"
+
+      Text {
+        id: countryNameAndCapitalText
+
+        anchors {
+          left: parent.left
+          leftMargin: 10
+          verticalCenter: parent.verticalCenter
+        }
+
+        text: (index + 1) + ". " + name + " - " + capital
+        color: "white"
+
+        font.bold: true
+      }
+
+      Text {
+        id: populationText
+
+        anchors {
+          right: parent.right
+          rightMargin: 20
+          verticalCenter: parent.verticalCenter
+        }
+
+        text: "Population: " + population + " milions"
+        color: "white"
+      }
+    }
+  }
 }
 
